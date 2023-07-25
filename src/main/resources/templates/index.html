@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schawarma List</title>
+</head>
+<body>
+<h1>Schawarma List</h1>
+<div id="schawarmaList">
+</div>
+<button onclick="loadPrevious()">Previous</button>
+<button onclick="loadNext()">Next</button>
+<script>
+    var currentPage = 0; // Variable to store the current page number
+    var pageSize = 10; // You can set the page size here
+    function loadSchawarma(page) {
+        fetch(`/get?page=${page}&pageSize=${pageSize}`)
+            .then(response => response.json())
+            .then(data => displaySchawarma(data));
+    }
+
+    function loadPrevious() {
+        if (currentPage > 0) {
+            currentPage--;
+            loadSchawarma(currentPage);
+        }
+    }
+
+    function loadNext() {
+        currentPage++;
+        loadSchawarma(currentPage);
+    }
+
+    function displaySchawarma(data) {
+        var schawarmaListDiv = document.getElementById('schawarmaList');
+        schawarmaListDiv.innerHTML = '';
+
+        data.forEach(schawarma => {
+            var schawarmaItem = document.createElement('div');
+            schawarmaItem.innerHTML = `ID: ${schawarma.id}, Name: ${schawarma.name}, Price: ${schawarma.price}`;
+            schawarmaListDiv.appendChild(schawarmaItem);
+        });
+    }
+
+    // Load initial data on page load
+    loadSchawarma(currentPage);
+</script>
+</body>
+</html>
