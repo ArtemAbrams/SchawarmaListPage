@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schawarma Form</title>
+</head>
+<body>
+<h1>Schawarma Form</h1>
+<form action="/save" method="post" enctype="multipart/form-data">
+    <label for="cooker">Cooker:</label>
+    <input type="text" id="cooker" name="cooker" required><br>
+
+    <label for="size">Size:</label>
+    <select id="size" name="size" required>
+        <option value="Big">Big</option>
+        <option value="Small">Small</option>
+        <option value="Middle">Middle</option>
+        <option value="Very_Big">Very_Big</option>
+    </select><br>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" required><br>
+
+    <label for="file">Schawarma Picture:</label>
+    <input type="file" id="file" name="file" required><br>
+
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

@@ -2,13 +2,68 @@
 <html>
 <head>
     <title>Schawarma List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #schawarmaList {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .schawarmaItem {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .schawarmaItem img {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+        }
+
+        .schawarmaItem p {
+            margin: 5px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <h1>Schawarma List</h1>
 <div id="schawarmaList">
 </div>
-<button onclick="loadPrevious()">Previous</button>
-<button onclick="loadNext()">Next</button>
+<div class="pagination">
+    <button onclick="loadPrevious()">Previous</button>
+    <button onclick="loadNext()">Next</button>
+</div>
 <script>
     var currentPage = 0; // Variable to store the current page number
     var pageSize = 10; // You can set the page size here
@@ -17,32 +72,58 @@
             .then(response => response.json())
             .then(data => displaySchawarma(data));
     }
-
     function loadPrevious() {
         if (currentPage > 0) {
             currentPage--;
             loadSchawarma(currentPage);
         }
     }
-
     function loadNext() {
         currentPage++;
         loadSchawarma(currentPage);
     }
-
     function displaySchawarma(data) {
-        var schawarmaListDiv = document.getElementById('schawarmaList');
+        const schawarmaListDiv = document.getElementById('schawarmaList');
         schawarmaListDiv.innerHTML = '';
-
         data.forEach(schawarma => {
-            var schawarmaItem = document.createElement('div');
-            schawarmaItem.innerHTML = `ID: ${schawarma.id}, Name: ${schawarma.name}, Price: ${schawarma.price}`;
+            const schawarmaItem = document.createElement('div');
+            schawarmaItem.classList.add('schawarmaItem');
+
+            const img = document.createElement('img');
+            img.onload = function() {
+                console.log('Картинка завантажена повністю.');
+                alert(img.complete);
+            };
+            img.onerror = function() {
+                console.error('Помилка завантаження картинки:', img.error);
+            };
+            const blob = new Blob([arrayBufferToBase64(schawarma.schwarmaPicture)], { type: 'image/jpeg' });
+            img.src = URL.createObjectURL(blob);
+            img.loading="lazy";
+            schawarmaItem.appendChild(img);
+
+            const details = document.createElement('div');
+            details.innerHTML = `
+            <p>Cooker: ${schawarma.cooker}</p>
+            <p>Size: ${schawarma.size}</p>
+            <p>Price: ${schawarma.price}</p>
+        `;
+            schawarmaItem.appendChild(details);
             schawarmaListDiv.appendChild(schawarmaItem);
         });
     }
-
-    // Load initial data on page load
+    function arrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    }
     loadSchawarma(currentPage);
 </script>
 </body>
 </html>
+
+
