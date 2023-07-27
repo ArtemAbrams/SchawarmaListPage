@@ -1,4 +1,4 @@
-package com.example.schawarmashop.enums;
+package com.example.schawarmashop.domain.enums;
 
 public enum Size {
     Big,

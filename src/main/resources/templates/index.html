@@ -89,17 +89,21 @@
             const schawarmaItem = document.createElement('div');
             schawarmaItem.classList.add('schawarmaItem');
 
-            const img = document.createElement('img');
+            const byteArray = schawarma.schwarmaPicture;
+            const img = new Image();
+            if (byteArray !== null) {
+                img.src = 'data:image/jpg;base64, ' + byteArray;
+            }
+
             img.onload = function() {
                 console.log('Картинка завантажена повністю.');
                 alert(img.complete);
             };
+
             img.onerror = function() {
                 console.error('Помилка завантаження картинки:', img.error);
             };
-            const blob = new Blob([arrayBufferToBase64(schawarma.schwarmaPicture)], { type: 'image/jpeg' });
-            img.src = URL.createObjectURL(blob);
-            img.loading="lazy";
+
             schawarmaItem.appendChild(img);
 
             const details = document.createElement('div');

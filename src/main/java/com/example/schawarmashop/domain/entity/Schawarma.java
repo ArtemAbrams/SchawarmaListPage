@@ -1,10 +1,9 @@
-package com.example.schawarmashop.entity;
+package com.example.schawarmashop.domain.entity;
 
-import com.example.schawarmashop.enums.Size;
+import com.example.schawarmashop.domain.enums.Size;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;

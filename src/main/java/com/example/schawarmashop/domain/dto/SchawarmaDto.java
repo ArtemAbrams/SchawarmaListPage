@@ -1,6 +1,6 @@
-package com.example.schawarmashop.dto;
+package com.example.schawarmashop.domain.dto;
 
-import com.example.schawarmashop.enums.Size;
+import com.example.schawarmashop.domain.enums.Size;
 import lombok.*;
 import java.io.Serializable;
 

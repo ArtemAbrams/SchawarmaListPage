@@ -1,11 +1,10 @@
-package com.example.schawarmashop.data;
+package com.example.schawarmashop.domain.data;
 
-import com.example.schawarmashop.enums.Size;
+import com.example.schawarmashop.domain.enums.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.core.io.Resource;
 
 @Getter
 @Setter
